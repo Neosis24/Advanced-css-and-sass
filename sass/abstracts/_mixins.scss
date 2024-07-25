@@ -1,0 +1,56 @@
+@mixin clearfix {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin absCenter {
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// MEDIA QUERY MANAGER
+/*
+0 - 600px:      PHONE
+600px - 900px:  TABLET portrait
+900px - 1200px  TABLET landscape
+1200px - 1800px  is where our normal styles apply
+1800px + :  Big Desktop
+
+$breakpoint argument choices:
+- PHONE
+- TAB-PORT
+- TAB-LAND
+- BIG-DESKTOP
+
+ORDER: Base + typhograpy > general layout + grid > page layout > components
+
+Media queries is using em instead of rem
+1em = 16px -- 16px is the default size of a browser
+*/
+
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        // 600/16 = 37.5em
+        @media only screen and (max-width: 37.5em) { @content };
+    }
+    @if $breakpoint == tab-port {
+        // 900/16 = 56.25em
+        @media only screen and (max-width: 56.25em) { @content };
+    }
+    @if $breakpoint == tab-land {
+        // 1200/16 = 75em
+        @media only screen and (max-width: 75em) { @content };
+    }
+    
+    /*
+    @if $breakpoint == big-desktop {
+        // 7680/16 = 480em
+        @media (max-width: 160em) { @content };
+    }
+    */
+}
